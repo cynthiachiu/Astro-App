@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    server:
+        build: ./server
+        expose:
+            - 3001
+        ports:
+            - 3001:3001
+        volumes:
+            - ./server/src:/srv/app/server/src
+        command: npm run start
+    client:
+        build: ./client
+        expose:
+            - 3000
+        ports:
+            - 3000:3000
+        volumes:
+            - ./client/src:/srv/app/client/src
+            - ./client/public:/srv/app/client/public
+        depends_on:
+            - server
+        command: npm run start
